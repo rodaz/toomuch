@@ -19,14 +19,18 @@ var costFilter_component_1 = require("./costFilter/costFilter.component");
 var primeng_2 = require('primeng/primeng');
 var forms_1 = require('@angular/forms');
 var primeng_3 = require('primeng/primeng');
+var primeng_4 = require('primeng/primeng');
+var costService_1 = require("./services/costService");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [primeng_3.ButtonModule, platform_browser_1.BrowserModule, datatable_1.DataTableModule, shared_1.SharedModule, primeng_1.CalendarModule, primeng_2.DropdownModule, forms_1.FormsModule],
+            imports: [primeng_3.ButtonModule, platform_browser_1.BrowserModule, datatable_1.DataTableModule, shared_1.SharedModule,
+                primeng_1.CalendarModule, primeng_2.DropdownModule, forms_1.FormsModule, primeng_4.ToolbarModule],
             declarations: [app_component_1.AppComponent, costTable_component_1.CostTable, costFilter_component_1.CostFilter],
-            bootstrap: [app_component_1.AppComponent, costTable_component_1.CostTable, costFilter_component_1.CostFilter]
+            providers: [costService_1.CostService],
+            bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

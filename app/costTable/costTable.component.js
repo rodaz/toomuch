@@ -16,17 +16,17 @@ var CostTable = (function () {
     }
     CostTable.prototype.ngOnInit = function () {
         var _this = this;
+        this.loadData();
+        this.costService.subject.subscribe(function () { return _this.loadData(); });
+    };
+    CostTable.prototype.loadData = function () {
+        var _this = this;
         this.costService.getCosts().then(function (costs) { return _this.costs = costs; });
-        this.cols = [
-            { field: 'plan', header: 'Plan' },
-            { field: 'fact', header: 'Fact' }
-        ];
     };
     CostTable = __decorate([
         core_1.Component({
             selector: 'cost-table',
-            templateUrl: './app/costTable/costTable.component.html',
-            providers: [costService_1.CostService]
+            templateUrl: './app/costTable/costTable.component.html'
         }), 
         __metadata('design:paramtypes', [costService_1.CostService])
     ], CostTable);

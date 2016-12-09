@@ -10,10 +10,14 @@ import {CostFilter} from "./costFilter/costFilter.component";
 import {DropdownModule} from 'primeng/primeng';
 import { FormsModule }   from '@angular/forms';
 import {ButtonModule} from 'primeng/primeng';
+import {ToolbarModule} from 'primeng/primeng';
+import {CostService} from "./services/costService";
 
 @NgModule({
-  imports:      [ ButtonModule, BrowserModule, DataTableModule,SharedModule, CalendarModule, DropdownModule, FormsModule ],
+  imports:      [ ButtonModule, BrowserModule, DataTableModule, SharedModule,
+    CalendarModule, DropdownModule, FormsModule, ToolbarModule ],
   declarations: [ AppComponent, CostTable, CostFilter ],
-  bootstrap:    [ AppComponent, CostTable, CostFilter ]
+  providers:    [ CostService ],
+  bootstrap:    [ AppComponent]
 })
 export class AppModule { }

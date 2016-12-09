@@ -10,9 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var db_1 = require("../data/db");
+var Subject_1 = require("rxjs/Subject");
 var CostService = (function () {
     function CostService() {
+        this.subject = new Subject_1.Subject();
     }
+    ;
     CostService.prototype.getCosts = function () {
         return new Promise(function (resolve) { return setTimeout(function () { return resolve(db_1.costs); }, 1000); });
     };
