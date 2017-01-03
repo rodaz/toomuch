@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "scripts": {
-    "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "start": "tsc && concurrently \"tsc -w\" \"node app\" ",
     "lite": "lite-server",
     "tsc": "tsc",
     "tsc:w": "tsc -w"
@@ -22,6 +22,7 @@
     "@angular/router": "~3.2.0",
     "angular-in-memory-web-api": "~0.1.15",
     "core-js": "^2.4.1",
+    "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "primeng": "^1.0.0",
     "reflect-metadata": "^0.1.8",
