@@ -12,10 +12,11 @@ import { FormsModule }   from '@angular/forms';
 import {ButtonModule} from 'primeng/primeng';
 import {ToolbarModule} from 'primeng/primeng';
 import {CostService} from "./services/costService";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   imports:      [ ButtonModule, BrowserModule, DataTableModule, SharedModule,
-    CalendarModule, DropdownModule, FormsModule, ToolbarModule ],
+    CalendarModule, DropdownModule, FormsModule, ToolbarModule, HttpModule ],
   declarations: [ AppComponent, CostTable, CostFilter ],
   providers:    [ CostService ],
   bootstrap:    [ AppComponent]

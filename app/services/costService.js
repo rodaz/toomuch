@@ -9,19 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var db_1 = require("../data/db");
+require('rxjs/Rx');
 var Subject_1 = require("rxjs/Subject");
+var http_1 = require("@angular/http");
 var CostService = (function () {
-    function CostService() {
+    function CostService(http) {
+        this.http = http;
         this.subject = new Subject_1.Subject();
     }
     ;
+    // getCosts(): Promise<Cost[]> {
+    //   return  new Promise(
+    //     resolve => setTimeout(
+    //       () => resolve(costs), 1000
+    //     )
+    //   );
+    // }
     CostService.prototype.getCosts = function () {
-        return new Promise(function (resolve) { return setTimeout(function () { return resolve(db_1.costs); }, 1000); });
+        return this.http.get('costs')
+            .map(function (response) { return console.log(response.json()); });
     };
     CostService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [http_1.Http])
     ], CostService);
     return CostService;
 }());

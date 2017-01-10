@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var cost_1 = require("../model/cost");
 var costService_1 = require("../services/costService");
 var CostTable = (function () {
     function CostTable(costService) {
@@ -19,9 +20,20 @@ var CostTable = (function () {
         this.loadData();
         this.costService.subject.subscribe(function () { return _this.loadData(); });
     };
+    // loadData() {
+    //   this.costService.getCosts().then(costs => this.costs = costs);
+    // }
     CostTable.prototype.loadData = function () {
         var _this = this;
-        this.costService.getCosts().then(function (costs) { return _this.costs = costs; });
+        this.costService.getCosts()
+            .subscribe(function (data) {
+            var myArray = [];
+            for (var key in data) {
+                myArray.push(new cost_1.Cost(data[key][0], data[key][1], data[key][2], data[key][3], data[key][4], data[key][5], data[key][6]));
+            }
+            _this.costs = myArray;
+            console.log(myArray);
+        });
     };
     CostTable = __decorate([
         core_1.Component({
