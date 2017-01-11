@@ -22,13 +22,13 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+// Get costs route
 app.get('/costs', function (req, res) {
 
   connection.connect();
 
   connection.query('SELECT * FROM costs', function (err, rows, fields) {
     if (err) throw err;
-    console.log('The solution is: ', rows[0]);
     res.json(rows);
   });
 

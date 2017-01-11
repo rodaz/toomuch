@@ -20,19 +20,15 @@ var CostTable = (function () {
         this.loadData();
         this.costService.subject.subscribe(function () { return _this.loadData(); });
     };
-    // loadData() {
-    //   this.costService.getCosts().then(costs => this.costs = costs);
-    // }
     CostTable.prototype.loadData = function () {
         var _this = this;
         this.costService.getCosts()
             .subscribe(function (data) {
             var myArray = [];
             for (var key in data) {
-                myArray.push(new cost_1.Cost(data[key][0], data[key][1], data[key][2], data[key][3], data[key][4], data[key][5], data[key][6]));
+                myArray.push(new cost_1.Cost(data[key].cost_id, data[key].cost_name, data[key].fact_qty, data[key].fact_rate, data[key].fact_total, data[key].plan_qty, data[key].plan_rate, data[key].plan_total));
             }
             _this.costs = myArray;
-            console.log(myArray);
         });
     };
     CostTable = __decorate([

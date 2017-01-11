@@ -17,19 +17,16 @@ export class CostTable implements OnInit {
     this.costService.subject.subscribe(() => this.loadData());
   }
 
-  // loadData() {
-  //   this.costService.getCosts().then(costs => this.costs = costs);
-  // }
   loadData() {
     this.costService.getCosts()
       .subscribe(
         (data:any) => {
           let myArray: Cost[] = [];
           for (let key in data) {
-            myArray.push(new Cost(123,data[key][1],data[key][2],data[key][3],data[key][4],data[key][5],data[key][6]));
+            myArray.push(new Cost(data[key].cost_id, data[key].cost_name,data[key].fact_qty,data[key].fact_rate,
+              data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
           }
           this.costs = myArray;
-          console.log(myArray);
         }
       );
   }

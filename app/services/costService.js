@@ -18,16 +18,9 @@ var CostService = (function () {
         this.subject = new Subject_1.Subject();
     }
     ;
-    // getCosts(): Promise<Cost[]> {
-    //   return  new Promise(
-    //     resolve => setTimeout(
-    //       () => resolve(costs), 1000
-    //     )
-    //   );
-    // }
     CostService.prototype.getCosts = function () {
         return this.http.get('costs')
-            .map(function (response) { return console.log(response.json()); });
+            .map(function (response) { return response.json(); });
     };
     CostService = __decorate([
         core_1.Injectable(), 

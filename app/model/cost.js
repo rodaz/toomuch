@@ -1,6 +1,7 @@
 "use strict";
 var Cost = (function () {
-    function Cost(costName, planQty, planRate, planTotal, factQty, factRate, factTotal) {
+    function Cost(costId, costName, planQty, planRate, planTotal, factQty, factRate, factTotal) {
+        this.costId = costId;
         this.costName = costName;
         this.planQty = planQty;
         this.planRate = planRate;
