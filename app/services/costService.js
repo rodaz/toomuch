@@ -10,14 +10,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 require('rxjs/Rx');
-var Subject_1 = require("rxjs/Subject");
 var http_1 = require("@angular/http");
 var CostService = (function () {
     function CostService(http) {
         this.http = http;
-        this.subject = new Subject_1.Subject();
     }
-    ;
     CostService.prototype.getCosts = function () {
         return this.http.get('costs')
             .map(function (response) { return response.json(); });

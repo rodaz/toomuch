@@ -10,6 +10,8 @@ var connection = mysql.createConnection({
   database: 'toomuch'
 });
 
+connection.connect();
+
 // Static files
 app.use(express.static(__dirname));
 
@@ -19,20 +21,16 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // Root route
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname + 'app/index.html'));
 });
 
 // Get costs route
 app.get('/costs', function (req, res) {
 
-  connection.connect();
-
   connection.query('SELECT * FROM costs', function (err, rows, fields) {
     if (err) throw err;
     res.json(rows);
   });
-
-  connection.end();
 
 });
 

@@ -1,19 +1,21 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {SelectItem} from 'primeng/primeng';
 import {CostService} from "../services/costService";
+import {Cost} from "../model/cost";
 
 @Component({
-  selector: 'cost-filter',
-  templateUrl: './app/costFilter/costFilter.component.html'
+  selector: 'cost',
+  templateUrl: './app/cost/cost.component.html'
 })
-export class CostFilter {
+export class CostComponent implements OnInit {
   months: SelectItem[];
   years: SelectItem[];
+  costs: Cost[];
 
-  selectedMonthStart: string;
-  selectedYearStart: string;
-  selectedMonthEnd: string;
-  selectedYearEnd: string;
+  selectedMonthStart: string = 'Январь';
+  selectedYearStart: string = '2016';
+  selectedMonthEnd: string = 'Январь';
+  selectedYearEnd: string = '2016';
 
   constructor(private costService: CostService){
     this.months = [];
@@ -38,6 +40,26 @@ export class CostFilter {
   }
 
   searchCosts(){
-    this.costService.subject.next();
+    this.loadData(this.selectedMonthStart, this.selectedYearStart);
+  }
+
+  ngOnInit() {
+    this.loadData('Май', '2016');
+    //this.costService.subject.subscribe((month) => this.loadData(month));
+  }
+
+  loadData(month: string, year: string) {
+    console.log(month+' '+year);
+    this.costService.getCosts()
+      .subscribe(
+        (data:any) => {
+          let myArray: Cost[] = [];
+          for (let key in data) {
+            myArray.push(new Cost(data[key].cost_id, data[key].cost_name,data[key].fact_qty,data[key].fact_rate,
+              data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
+          }
+          this.costs = myArray;
+        }
+      );
   }
 }
