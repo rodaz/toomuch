@@ -1,2 +1,8 @@
-<h1>LOgin</h1>
-<button (click)="onLogin()">Halo</button>
+<h1>Вход в систему</h1>
+<form>
+  <label for="log">Логин</label>
+  <input type="text" pInputText id="log" #log/>
+  <label for="pass">Пароль</label>
+  <input type="text" pInputText id="pass" #pass/>
+  <button pButton type="button" label="Войти" (click)="onLogin(log.value, pass.value)"></button>
+</form>

@@ -15,8 +15,8 @@ var CostService = (function () {
     function CostService(http) {
         this.http = http;
     }
-    CostService.prototype.getCosts = function () {
-        return this.http.get('costs')
+    CostService.prototype.getCosts = function (month, year) {
+        return this.http.post('costs', { month: month, year: year })
             .map(function (response) { return response.json(); });
     };
     CostService = __decorate([

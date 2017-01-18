@@ -8,8 +8,8 @@ export class CostService {
 
   constructor(private http: Http){ }
 
-  getCosts() {
-    return  this.http.get('costs')
+  getCosts(month: number, year: number) {
+    return  this.http.post('costs', {month: month, year: year})
       .map((response: Response) => response.json());
   }
 }

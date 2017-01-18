@@ -20,14 +20,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // Root route
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + 'app/index.html'));
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 // Get costs route
-app.get('/costs', function (req, res) {
-
-  connection.query('SELECT * FROM costs', function (err, rows, fields) {
+app.post('/costs', function (req, res) {
+  connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
+  'left join articles on article = article_id left join gilds on gild = gild_id where month='+req.body.month+' and year='+
+    req.body.year+' ;', function (err, rows, fields) {
     if (err) throw err;
     res.json(rows);
   });

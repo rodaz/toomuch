@@ -9,7 +9,13 @@ export class LoginComponent {
 
   constructor(private router: Router){}
 
-  onLogin() {
-    this.router.navigate(['/admin']);
+  onLogin(log: string, pass: string) {
+    if (log == 'root' && pass == 'root')
+      this.router.navigate(['/admin']);
+    else
+      if (log == 'user' && pass == 'user')
+        this.router.navigate(['/admin']);
+      else
+        this.router.navigate(['/admin']);
   }
 }

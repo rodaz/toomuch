@@ -3,6 +3,7 @@
 <p-dropdown [options]="years" [(ngModel)]="selectedYearEnd"></p-dropdown>
 <p-dropdown [options]="months" [(ngModel)]="selectedMonthEnd"></p-dropdown>
 <button pButton type="button" label="Поиск" (click)="searchCosts()" class="search-btn"></button>
+
 <p-dataTable [value]="costs">
   <p-column field="costName" header="Статья расходов"></p-column>
   <p-column field="planQty" header="к-во план"></p-column>
