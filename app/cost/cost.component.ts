@@ -12,13 +12,18 @@ export class CostComponent implements OnInit {
   months: SelectItem[];
   years: SelectItem[];
   costs: Cost[];
+  locks: SelectItem[];
 
   selectedMonthStart: number = 1;
   selectedYearStart: number = 2016;
   selectedMonthEnd: number = 1;
   selectedYearEnd: number = 2016;
+  lock_item: string = 'Декабрь 2015';
 
   constructor(private costService: CostService){
+    this.locks = [];
+    this.locks.push({label: 'Декабрь 2015', value: 4});
+
     this.months = [];
     this.months.push({label:'Январь', value:1});
     this.months.push({label: 'Февраль', value:2});

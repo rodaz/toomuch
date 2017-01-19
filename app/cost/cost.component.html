@@ -4,6 +4,9 @@
 <p-dropdown [options]="months" [(ngModel)]="selectedMonthEnd"></p-dropdown>
 <button pButton type="button" label="Поиск" (click)="searchCosts()" class="search-btn"></button>
 
+<p-dropdown [options]="locks" [(ngModel)]="lock_item" class="lock-input"></p-dropdown>
+<button pButton type="button" label="Закрыть/Открыть месяц" (click)="searchCosts()" class="lock-btn"></button>
+
 <p-dataTable [value]="costs">
   <p-column field="costName" header="Статья расходов"></p-column>
   <p-column field="planQty" header="к-во план"></p-column>

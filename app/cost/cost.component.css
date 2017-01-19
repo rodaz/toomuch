@@ -1,3 +1,14 @@
 .search-btn {
+  position: absolute;
+  margin-left: 5px;
+}
 
+.lock-btn {
+  position: absolute;
+  right: 20px;
+}
+
+.lock-input {
+  position: absolute;
+  right: 250px;
 }
