@@ -57,11 +57,13 @@ export class CostComponent implements OnInit {
   loadData(month: number, year: number) {
     this.costService.getCosts(month, year)
       .subscribe(
-        (data:any) => {
+        (data:any[]) => {
           let myArray: Cost[] = [];
-          for (let key in data) {
-            myArray.push(new Cost(data[key].cost_id, data[key].a_name,data[key].fact_qty,data[key].fact_rate,
-              data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
+          for (let k=0;k<data.length;k++) {
+            //myArray.push(new Cost(data[key].cost_id, data[key].a_name,data[key].fact_qty,data[key].fact_rate,
+              //data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
+            myArray.push(new Cost(data[k][0].cost_id, data[k][1].a_name, data[k][2].plan_qty, data[k][3].plan_rate,
+              data[k][4].plan_total, data[k][5].fact_qty, data[k][6].fact_rate, data[k][7].fact_total))
           }
           this.costs = myArray;
         }

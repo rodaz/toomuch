@@ -24,10 +24,10 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-function* go(arts, req){
+function go(arts, req){
   let result = [];
   for(let j=0; j<arts.length; j++) {
-    yield connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
+    connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
       'left join articles on article = article_id where month='+req.body.month+' and year='+
       req.body.year+' and article='+arts[j].article_id+' ;', function (err, rows) {
       if (err) throw err;
@@ -44,18 +44,20 @@ function* go(arts, req){
           {fact_total: 0}
         ];
         for (let i = 0; i < rows.length; i++) {
-          temp[1].plan_qty += rows[i].plan_qty;
-          temp[2].plan_rate += rows[i].plan_rate;
-          temp[3].plan_total += rows[i].plan_total;
-          temp[4].fact_qty += rows[i].fact_qty;
-          temp[5].fact_rate += rows[i].fact_rate;
-          temp[6].fact_total += rows[i].fact_total;
+          temp[2].plan_qty += rows[i].plan_qty;
+          temp[3].plan_rate += rows[i].plan_rate;
+          temp[4].plan_total += rows[i].plan_total;
+          temp[5].fact_qty += rows[i].fact_qty;
+          temp[6].fact_rate += rows[i].fact_rate;
+          temp[7].fact_total += rows[i].fact_total;
         }
         result.push(temp);
       }
     });
   }
-  yield result;
+
+  //setTimeout(function(){console.log('hehe '+result);}, 3000);
+  return result;
 }
 
 // Get costs route
@@ -73,15 +75,11 @@ app.post('/costs', function (req, res) {
     //if (err) throw err;
     arts = rows;
 
-    let gen = go(arts, req);
-    for (let y=0;y<arts.length;y++) {
-      console.log(gen.next());
-    }
-    result = gen.next();
+    result = go(arts, req);
+
     console.log(result);
-    result = gen.next();
-    console.log(result);
-    res.json(result);
+    setTimeout(function () {res.json(result);}, 3000);
+    //res.json(result);
 
     // for(let j=0; j<arts.length; j++) {
     //   connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
