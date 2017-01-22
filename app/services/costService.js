@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-require('rxjs/Rx');
+require("rxjs/Rx");
 var http_1 = require("@angular/http");
 var CostService = (function () {
     function CostService(http) {
@@ -19,11 +19,11 @@ var CostService = (function () {
         return this.http.post('costs', { month: month, year: year })
             .map(function (response) { return response.json(); });
     };
-    CostService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], CostService);
     return CostService;
 }());
+CostService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], CostService);
 exports.CostService = CostService;
 //# sourceMappingURL=costService.js.map

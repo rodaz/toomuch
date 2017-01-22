@@ -50,7 +50,7 @@ export class CostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData(5, 2016);
+    this.loadData(1, 2016);
     //this.costService.subject.subscribe((month) => this.loadData(month));
   }
 
