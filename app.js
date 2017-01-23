@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -128,6 +129,13 @@ app.post('/costs', function (req, res) {
   });
    // console.log(result);
    // res.json(result);
+});
+
+app.post('/month', function (req, res) {
+  connection.query('SELECT * FROM LOMONTH;', function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
 });
 
 // Start server

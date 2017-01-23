@@ -12,4 +12,9 @@ export class CostService {
     return  this.http.post('costs', {month: month, year: year})
       .map((response: Response) => response.json());
   }
+
+  getMonthes() {
+    return this.http.post('month', null)
+      .map((response: Response) => response.json());
+  }
 }

@@ -19,6 +19,10 @@ var CostService = (function () {
         return this.http.post('costs', { month: month, year: year })
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.getMonthes = function () {
+        return this.http.post('month', null)
+            .map(function (response) { return response.json(); });
+    };
     return CostService;
 }());
 CostService = __decorate([

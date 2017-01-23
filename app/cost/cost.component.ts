@@ -18,11 +18,9 @@ export class CostComponent implements OnInit {
   selectedYearStart: number = 2016;
   selectedMonthEnd: number = 1;
   selectedYearEnd: number = 2016;
-  lock_item: string = 'Декабрь 2015';
+  lock_item: string = 'Декабрь 2016';
 
   constructor(private costService: CostService){
-    this.locks = [];
-    this.locks.push({label: 'Декабрь 2015', value: 4});
 
     this.months = [];
     this.months.push({label:'Январь', value:1});
@@ -43,6 +41,20 @@ export class CostComponent implements OnInit {
     this.years.push({label: '2018', value:2018});
     this.years.push({label: '2019', value:2019});
     this.years.push({label: '2020', value:2020});
+
+    this.locks = [];
+    //this.locks.push({label: 'Декабрь 2015', value: 4});
+    this.costService.getMonthes()
+      .subscribe(
+        (data:any[]) => {
+          let tempArr: any[] = [];
+          for (let i=0; i<data.length; i++){
+            tempArr.push({label: data[i].m_name, value: data[i].month_id});
+          }
+          this.locks = tempArr;
+          this.lock_item = tempArr[0];
+        }
+      );
   }
 
   searchCosts(){
