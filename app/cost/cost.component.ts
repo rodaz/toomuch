@@ -18,7 +18,7 @@ export class CostComponent implements OnInit {
   selectedYearStart: number = 2016;
   selectedMonthEnd: number = 1;
   selectedYearEnd: number = 2016;
-  lock_item: string = 'Декабрь 2016';
+  lock_item: any = {label:''};
 
   constructor(private costService: CostService){
 
@@ -49,10 +49,10 @@ export class CostComponent implements OnInit {
         (data:any[]) => {
           let tempArr: any[] = [];
           for (let i=0; i<data.length; i++){
-            tempArr.push({label: data[i].m_name, value: data[i].month_id});
+            tempArr.push({label: data[i].m_name, value: {id:data[i].month_id, lock: data[i].lock}});
           }
           this.locks = tempArr;
-          this.lock_item = tempArr[0];
+          //this.lock_item = tempArr[0];
         }
       );
   }
@@ -80,5 +80,13 @@ export class CostComponent implements OnInit {
           this.costs = myArray;
         }
       );
+  }
+
+  lock() {
+    this.lock_item.lock = 1;
+  }
+
+  open() {
+    this.lock_item.lock = 0;
   }
 }
