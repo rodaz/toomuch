@@ -132,7 +132,21 @@ app.post('/costs', function (req, res) {
 });
 
 app.post('/month', function (req, res) {
-  connection.query('SELECT * FROM LOMONTH;', function(err, rows) {
+  connection.query('SELECT * FROM lomonth;', function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
+app.post('/updLock', function(req, res) {
+  connection.query('UPDATE lomonth SET lomonth.lock = '+req.body.lock+' WHERE lomonth.month_id='+req.body.id+' ;', function(err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+app.post('/login', function(req, res) {
+  connection.query('SELECT * FROM gilds WHERE g_log = '+req.body.log+' AND g_pass = '+req.body.pass+' ;', function(err, rows) {
     if (err) throw err;
     res.json(rows);
   });

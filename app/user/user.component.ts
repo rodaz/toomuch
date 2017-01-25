@@ -4,21 +4,17 @@ import {CostService} from "../services/costService";
 import {Cost} from "../model/cost";
 
 @Component({
-  selector: 'cost',
-  templateUrl: './app/cost/cost.component.html',
-  styleUrls: ['./app/cost/cost.component.css']
+  selector: 'user',
+  templateUrl: './app/user/user.component.html',
+  styleUrls: ['./app/user/user.component.css']
 })
-export class CostComponent implements OnInit {
+export class UserComponent implements OnInit {
   months: SelectItem[];
   years: SelectItem[];
   costs: Cost[];
-  locks: SelectItem[];
 
   selectedMonthStart: number = 1;
   selectedYearStart: number = 2016;
-  selectedMonthEnd: number = 1;
-  selectedYearEnd: number = 2016;
-  lock_item: any = {};
 
   constructor(private costService: CostService){
 
@@ -41,20 +37,6 @@ export class CostComponent implements OnInit {
     this.years.push({label: '2018', value:2018});
     this.years.push({label: '2019', value:2019});
     this.years.push({label: '2020', value:2020});
-
-    this.locks = [];
-    //this.locks.push({label: 'Декабрь 2015', value: 4});
-    this.costService.getMonthes()
-      .subscribe(
-        (data:any[]) => {
-          let tempArr: any[] = [{label:'Выберите месяц:', value: {id:0, lock:2}}];
-          for (let i=0; i<data.length; i++){
-            tempArr.push({label: data[i].m_name, value: {id:data[i].month_id, lock: data[i].lock}});
-          }
-          this.locks = tempArr;
-          //this.lock_item = tempArr[0];
-        }
-      );
   }
 
   searchCosts(){
@@ -73,26 +55,12 @@ export class CostComponent implements OnInit {
           let myArray: Cost[] = [];
           for (let k=0;k<data.length;k++) {
             //myArray.push(new Cost(data[key].cost_id, data[key].a_name,data[key].fact_qty,data[key].fact_rate,
-              //data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
+            //data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
             myArray.push(new Cost(data[k][0].cost_id, data[k][1].a_name, data[k][2].plan_qty, data[k][3].plan_rate,
               data[k][4].plan_total, data[k][5].fact_qty, data[k][6].fact_rate, data[k][7].fact_total))
           }
           this.costs = myArray;
         }
       );
-  }
-
-  lock() {
-    this.costService.updLock(this.lock_item.id, 1)
-      .subscribe(
-        data => console.log(data),
-        error => console.log(error)
-      );
-    this.lock_item.lock = 1;
-  }
-
-  open() {
-    //this.costService.updLock(this.lock_item.id, 0);
-    this.lock_item.lock = 0;
   }
 }

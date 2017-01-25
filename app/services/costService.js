@@ -23,6 +23,10 @@ var CostService = (function () {
         return this.http.post('month', null)
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.updLock = function (idl, lck) {
+        return this.http.post('updLock', { id: idl, lock: lck })
+            .map(function (response) { return response.json(); });
+    };
     return CostService;
 }());
 CostService = __decorate([

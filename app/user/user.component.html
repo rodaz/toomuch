@@ -1,0 +1,13 @@
+<p-dropdown [options]="years" [(ngModel)]="selectedYear"></p-dropdown>
+<p-dropdown [options]="months" [(ngModel)]="selectedMonth"></p-dropdown>
+<button pButton type="button" label="Поиск" (click)="searchCosts()" class="search-btn"></button>
+
+<p-dataTable [value]="costs">
+  <p-column field="costName" header="Статья расходов"></p-column>
+  <p-column field="planQty" header="к-во план"></p-column>
+  <p-column field="planRate" header="цена"></p-column>
+  <p-column field="planTotal" header="сумма план"></p-column>
+  <p-column field="factQty" header="к-во факт"></p-column>
+  <p-column field="factRate" header="сумма факт"></p-column>
+  <p-column field="factTotal" header="откл. Сум"></p-column>
+</p-dataTable>

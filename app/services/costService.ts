@@ -17,4 +17,9 @@ export class CostService {
     return this.http.post('month', null)
       .map((response: Response) => response.json());
   }
+
+  updLock(idl: number, lck: number) {
+    return this.http.post('updLock', {id: idl, lock: lck})
+      .map((response: Response) => response.json());
+  }
 }
