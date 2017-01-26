@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {SelectItem} from 'primeng/primeng';
 import {CostService} from "../services/costService";
 import {Cost} from "../model/cost";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'user',
@@ -13,10 +14,12 @@ export class UserComponent implements OnInit {
   years: SelectItem[];
   costs: Cost[];
 
+  user:any;
+
   selectedMonthStart: number = 1;
   selectedYearStart: number = 2016;
 
-  constructor(private costService: CostService){
+  constructor(private costService: CostService, private route: ActivatedRoute){
 
     this.months = [];
     this.months.push({label:'Январь', value:1});
@@ -37,6 +40,12 @@ export class UserComponent implements OnInit {
     this.years.push({label: '2018', value:2018});
     this.years.push({label: '2019', value:2019});
     this.years.push({label: '2020', value:2020});
+
+    this.user = this.route
+      .queryParams;
+      //.map(params => params['ro'] || 'None');
+
+    console.log(this.user.value);
   }
 
   searchCosts(){
@@ -49,17 +58,17 @@ export class UserComponent implements OnInit {
   }
 
   loadData(month: number, year: number) {
-    this.costService.getCosts(month, year)
+    this.costService.getUserData(month, year, this.user.value.id)
       .subscribe(
         (data:any[]) => {
           let myArray: Cost[] = [];
           for (let k=0;k<data.length;k++) {
-            //myArray.push(new Cost(data[key].cost_id, data[key].a_name,data[key].fact_qty,data[key].fact_rate,
-            //data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
-            myArray.push(new Cost(data[k][0].cost_id, data[k][1].a_name, data[k][2].plan_qty, data[k][3].plan_rate,
-              data[k][4].plan_total, data[k][5].fact_qty, data[k][6].fact_rate, data[k][7].fact_total))
+            myArray.push(new Cost(data[k].cost_id, data[k].a_name, data[k].plan_qty, data[k].plan_rate,
+              data[k].plan_qty*data[k].plan_rate, data[k].fact_qty, data[k].fact_qty*data[k].plan_rate,
+              data[k].plan_qty*data[k].plan_rate-data[k].fact_qty*data[k].plan_rate))
           }
           this.costs = myArray;
+          console.log(data);
         }
       );
   }

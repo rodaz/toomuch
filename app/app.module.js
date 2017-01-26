@@ -22,6 +22,7 @@ var main_component_1 = require("./main.component");
 var app_routing_module_1 = require("./app-routing.module");
 var login_component_1 = require("./login.component");
 var primeng_5 = require("primeng/primeng");
+var user_component_1 = require("./user/user.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -33,7 +34,7 @@ AppModule = __decorate([
             primeng_1.CalendarModule, primeng_2.DropdownModule, forms_1.FormsModule, primeng_4.ToolbarModule, http_1.HttpModule,
             app_routing_module_1.AppRoutingModule, primeng_5.InputTextModule
         ],
-        declarations: [app_component_1.AppComponent, cost_component_1.CostComponent, main_component_1.MainComponent, login_component_1.LoginComponent],
+        declarations: [app_component_1.AppComponent, cost_component_1.CostComponent, main_component_1.MainComponent, login_component_1.LoginComponent, user_component_1.UserComponent],
         providers: [costService_1.CostService],
         bootstrap: [main_component_1.MainComponent]
     })

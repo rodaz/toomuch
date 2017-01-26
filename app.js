@@ -145,8 +145,17 @@ app.post('/updLock', function(req, res) {
   });
 });
 
-app.post('/login', function(req, res) {
-  connection.query('SELECT * FROM gilds WHERE g_log = '+req.body.log+' AND g_pass = '+req.body.pass+' ;', function(err, rows) {
+app.post('/log', function(req, res) {
+  connection.query('SELECT * FROM gilds WHERE g_log = \''+req.body.log+'\' AND g_pass = \''+req.body.pass+'\' ;', function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
+app.post('/userData', function(req, res) {
+  connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
+      'left join articles on article = article_id where month='+req.body.month+' and year='+
+      req.body.year+' and gild='+req.body.user+' ;', function (err, rows) {
     if (err) throw err;
     res.json(rows);
   });

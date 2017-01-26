@@ -16,13 +16,14 @@ import {MainComponent} from "./main.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {LoginComponent} from "./login.component";
 import {InputTextModule} from "primeng/primeng";
+import {UserComponent} from "./user/user.component";
 
 @NgModule({
   imports:      [ ButtonModule, BrowserModule, DataTableModule, SharedModule,
     CalendarModule, DropdownModule, FormsModule, ToolbarModule, HttpModule,
     AppRoutingModule, InputTextModule
   ],
-  declarations: [ AppComponent, CostComponent, MainComponent, LoginComponent ],
+  declarations: [ AppComponent, CostComponent, MainComponent, LoginComponent, UserComponent ],
   providers:    [ CostService ],
   bootstrap:    [ MainComponent ]
 })

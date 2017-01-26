@@ -19,12 +19,20 @@ var CostService = (function () {
         return this.http.post('costs', { month: month, year: year })
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.getUserData = function (month, year, user) {
+        return this.http.post('userData', { month: month, year: year, user: user })
+            .map(function (response) { return response.json(); });
+    };
     CostService.prototype.getMonthes = function () {
         return this.http.post('month', null)
             .map(function (response) { return response.json(); });
     };
     CostService.prototype.updLock = function (idl, lck) {
         return this.http.post('updLock', { id: idl, lock: lck })
+            .map(function (response) { return response.json(); });
+    };
+    CostService.prototype.log_in = function (log, pass) {
+        return this.http.post('log', { log: log, pass: pass })
             .map(function (response) { return response.json(); });
     };
     return CostService;

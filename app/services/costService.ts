@@ -13,6 +13,11 @@ export class CostService {
       .map((response: Response) => response.json());
   }
 
+  getUserData(month:number, year: number, user: number) {
+    return this.http.post('userData', {month: month, year: year, user:user})
+      .map((response: Response) => response.json());
+  }
+
   getMonthes() {
     return this.http.post('month', null)
       .map((response: Response) => response.json());
@@ -20,6 +25,11 @@ export class CostService {
 
   updLock(idl: number, lck: number) {
     return this.http.post('updLock', {id: idl, lock: lck})
+      .map((response: Response) => response.json());
+  }
+
+  log_in(log: string, pass: string) {
+    return this.http.post('log', {log: log, pass: pass})
       .map((response: Response) => response.json());
   }
 }
