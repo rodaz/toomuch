@@ -2,8 +2,8 @@
 
 <p-dropdown [options]="years" [(ngModel)]="selectedYearStart"></p-dropdown>
 <p-dropdown [options]="months" [(ngModel)]="selectedMonthStart"></p-dropdown>
-<p-dropdown [options]="years" [(ngModel)]="selectedYearEnd"></p-dropdown>
-<p-dropdown [options]="months" [(ngModel)]="selectedMonthEnd"></p-dropdown>
+<!--<p-dropdown [options]="years" [(ngModel)]="selectedYearEnd"></p-dropdown>-->
+<!--<p-dropdown [options]="months" [(ngModel)]="selectedMonthEnd"></p-dropdown>-->
 <button pButton type="button" label="Поиск" (click)="searchCosts()" class="search-btn"></button>
 
 <p-dropdown [options]="locks" [(ngModel)]="lock_item" [style]="{'width':'150px'}" class="lock-input"></p-dropdown>
@@ -11,7 +11,7 @@
 <button pButton type="button" label="Закрыть месяц" *ngIf="!lock_item.lock" (click)="lock()" class="lock-btn"></button>
 <button pButton type="button" label="Открыть месяц" *ngIf="lock_item.lock" (click)="open()" class="lock-btn"></button>
 
-<p-dataTable [value]="costs">
+<p-dataTable [value]="costs" [emptyMessage]="'Записей не найдено.'">
   <p-column field="costName" header="Статья расходов"></p-column>
   <p-column field="planQty" header="к-во план"></p-column>
   <p-column field="planRate" header="цена"></p-column>

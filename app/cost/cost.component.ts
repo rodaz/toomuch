@@ -14,29 +14,31 @@ export class CostComponent implements OnInit {
   costs: Cost[];
   locks: SelectItem[];
 
-  selectedMonthStart: number = 1;
-  selectedYearStart: number = 2016;
-  selectedMonthEnd: number = 1;
-  selectedYearEnd: number = 2016;
+  selectedMonthStart: string = 'Выбрать';
+  selectedYearStart: number = 0;
+  // selectedMonthEnd: string = 'Январь';
+  // selectedYearEnd: number = 2016;
   lock_item: any = {};
 
   constructor(private costService: CostService){
 
     this.months = [];
-    this.months.push({label:'Январь', value:1});
-    this.months.push({label: 'Февраль', value:2});
-    this.months.push({label:'Март', value:3});
-    this.months.push({label: 'Апрель', value:4});
-    this.months.push({label:'Май', value:5});
-    this.months.push({label: 'Июнь', value:6});
-    this.months.push({label:'Июль', value:7});
-    this.months.push({label: 'Август', value:8});
-    this.months.push({label:'Сентябрь', value:9});
-    this.months.push({label: 'Октябрь', value:10});
-    this.months.push({label:'Ноябрь', value:11});
-    this.months.push({label: 'Декабрь', value:12});
+    this.months.push({label:'Месяц', value:''});
+    this.months.push({label:'Январь', value:'Январь'});
+    this.months.push({label: 'Февраль', value:'Февраль'});
+    this.months.push({label:'Март', value:'c'});
+    this.months.push({label: 'Апрель', value:'Апрель'});
+    this.months.push({label:'Май', value:'Май'});
+    this.months.push({label: 'Июнь', value:'Июнь'});
+    this.months.push({label:'Июль', value:'Июль'});
+    this.months.push({label: 'Август', value:'Август'});
+    this.months.push({label:'Сентябрь', value:'Сентябрь'});
+    this.months.push({label: 'Октябрь', value:'Октябрь'});
+    this.months.push({label:'Ноябрь', value:'Ноябрь'});
+    this.months.push({label: 'Декабрь', value:'Декабрь'});
     this.years = [];
-    this.years.push({label:'2016', value:2016});
+    this.years.push({label:'Год', value:0});
+    this.years.push({label: '2016', value:2016});
     this.years.push({label: '2017', value:2017});
     this.years.push({label: '2018', value:2018});
     this.years.push({label: '2019', value:2019});
@@ -62,11 +64,11 @@ export class CostComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadData(1, 2016);
+    //this.loadData('Январь', 2016);
     //this.costService.subject.subscribe((month) => this.loadData(month));
   }
 
-  loadData(month: number, year: number) {
+  loadData(month: string, year: number) {
     this.costService.getCosts(month, year)
       .subscribe(
         (data:any[]) => {

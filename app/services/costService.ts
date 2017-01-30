@@ -8,12 +8,12 @@ export class CostService {
 
   constructor(private http: Http){ }
 
-  getCosts(month: number, year: number) {
+  getCosts(month: string, year: number) {
     return  this.http.post('costs', {month: month, year: year})
       .map((response: Response) => response.json());
   }
 
-  getUserData(month:number, year: number, user: number) {
+  getUserData(month:string, year: number, user: number) {
     return this.http.post('userData', {month: month, year: year, user:user})
       .map((response: Response) => response.json());
   }
@@ -30,6 +30,11 @@ export class CostService {
 
   log_in(log: string, pass: string) {
     return this.http.post('log', {log: log, pass: pass})
+      .map((response: Response) => response.json());
+  }
+
+  updCosts(id: number, field: string, value: string) {
+    return this.http.post('update', {id: id, field: field, value: value})
       .map((response: Response) => response.json());
   }
 }

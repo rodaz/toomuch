@@ -35,6 +35,10 @@ var CostService = (function () {
         return this.http.post('log', { log: log, pass: pass })
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.updCosts = function (id, field, value) {
+        return this.http.post('update', { id: id, field: field, value: value })
+            .map(function (response) { return response.json(); });
+    };
     return CostService;
 }());
 CostService = __decorate([

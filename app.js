@@ -29,7 +29,7 @@ function go(arts, req){
   let result = [];
   for(let j=0; j<arts.length; j++) {
     connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-      'left join articles on article = article_id where month='+req.body.month+' and year='+
+      'left join articles on article = article_id where month=\''+req.body.month+'\' and year='+
       req.body.year+' and article='+arts[j].article_id+' ;', function (err, rows) {
       if (err) throw err;
       if (rows[0]) {
@@ -154,11 +154,20 @@ app.post('/log', function(req, res) {
 
 app.post('/userData', function(req, res) {
   connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-      'left join articles on article = article_id where month='+req.body.month+' and year='+
+      'left join articles on article = article_id where month=\''+req.body.month+'\' and year='+
       req.body.year+' and gild='+req.body.user+' ;', function (err, rows) {
     if (err) throw err;
     res.json(rows);
   });
+});
+
+app.post('/update', function(req, res) {
+  let str = req.body.field.substr(0, 4)+'_'+req.body.field[4].toUpperCase() + req.body.field.slice(5);
+  connection.query('UPDATE costs SET '+str+' = '+req.body.value+' WHERE cost_id = '+req.body.id+' ;',
+    function(err, result) {
+      if(err) throw err;
+      res.json(result);
+    });
 });
 
 // Start server
