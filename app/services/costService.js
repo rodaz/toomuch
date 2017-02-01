@@ -39,6 +39,10 @@ var CostService = (function () {
         return this.http.post('update', { id: id, field: field, value: value })
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.getArts = function () {
+        return this.http.post('arts', null)
+            .map(function (response) { return response.json(); });
+    };
     return CostService;
 }());
 CostService = __decorate([

@@ -3,7 +3,6 @@ import {SelectItem} from 'primeng/primeng';
 import {CostService} from "../services/costService";
 import {Cost} from "../model/cost";
 import {ActivatedRoute} from "@angular/router";
-import {Column} from "primeng/components/common/shared";
 
 @Component({
   selector: 'user',

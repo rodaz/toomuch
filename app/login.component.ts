@@ -10,6 +10,7 @@ export class LoginComponent {
 
   //Main user
   admin: string = 'Hogwarts';
+  crud: string = 'Selvin';
 
   constructor(private router: Router, private costService: CostService){}
 
@@ -29,7 +30,10 @@ export class LoginComponent {
           if (data[0].g_name == this.admin)
             this.router.navigate(['/admin']);
           else
-            this.router.navigate(['/user'], {queryParams:{name: data[0].g_name, id: data[0].gild_id}});
+            if (data[0].g_name == this.crud)
+              this.router.navigate(['/crud']);
+            else
+              this.router.navigate(['/user'], {queryParams:{name: data[0].g_name, id: data[0].gild_id}});
         }
       );
   }

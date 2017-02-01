@@ -37,4 +37,9 @@ export class CostService {
     return this.http.post('update', {id: id, field: field, value: value})
       .map((response: Response) => response.json());
   }
+
+  getArts() {
+    return this.http.post('arts', null)
+      .map((response: Response) => response.json());
+  }
 }

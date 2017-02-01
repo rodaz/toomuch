@@ -170,6 +170,13 @@ app.post('/update', function(req, res) {
     });
 });
 
+app.post('/arts', function(req, res) {
+  connection.query('SELECT * FROM articles;', function(err, rows) {
+    if (err) throw err;
+    res.json(rows);
+  });
+});
+
 // Start server
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
