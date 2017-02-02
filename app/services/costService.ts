@@ -42,4 +42,19 @@ export class CostService {
     return this.http.post('arts', null)
       .map((response: Response) => response.json());
   }
+
+  updArt(art: any) {
+    return this.http.post('art_upd', {art:art})
+      .map((response: Response) => response.json());
+  }
+
+  delArt(art: any) {
+    return this.http.post('art_del', {art:art})
+      .map((response: Response) => response.json());
+  }
+
+  addArt(art: any) {
+    return this.http.post('art_add', {art:art})
+      .map((response: Response) => response.json());
+  }
 }

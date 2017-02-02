@@ -1,4 +1,4 @@
-<p-dataTable [value]="arts" selectionMode="single" [(selection)]="selectedArt" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+<p-dataTable [value]="arts" selectionMode="single" [(selection)]="selectedArt" (onRowSelect)="onRowSelect($event)" [responsive]="true">
   <p-header>CRUD for Articles</p-header>
   <p-column field="name" header="Name" [sortable]="true"></p-column>
   <p-column field="rank" header="Rank" [sortable]="true"></p-column>

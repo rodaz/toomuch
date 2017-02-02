@@ -12,7 +12,7 @@ export class SelvinComponent implements OnInit {
 
   art: Art = new Art();
 
-  selectedCar: Art;
+  selectedArt: Art;
 
   newArt: boolean;
 
@@ -21,7 +21,12 @@ export class SelvinComponent implements OnInit {
   constructor(private costService: CostService) { }
 
   ngOnInit() {
-    this.costService.getArts().subscribe(arts => this.arts = arts);
+    this.costService.getArts().subscribe(arts => {
+      let arr: Art[] = [];
+      for (let a=0;a<arts.length;a++)
+        arr.push(new Art(arts[a].article_id, arts[a].a_name, arts[a].rank));
+      this.arts = arr;
+    });
   }
 
   showDialogToAdd() {
@@ -31,17 +36,35 @@ export class SelvinComponent implements OnInit {
   }
 
   save() {
-    if(this.newArt)
+    if(this.newArt) {
       this.arts.push(this.art);
-    else
+      this.costService.addArt(this.art)
+        .subscribe(
+          data => console.log(data),
+          error => console.log(error)
+        );
+    }
+    else {
       this.arts[this.findSelectedCarIndex()] = this.art;
 
+
+      this.costService.updArt(this.art)
+        .subscribe(
+          data => console.log(data),
+          error => console.log(error)
+        );
+    }
     this.art = null;
     this.displayDialog = false;
   }
 
   delete() {
     this.arts.splice(this.findSelectedCarIndex(), 1);
+    this.costService.delArt(this.art)
+      .subscribe(
+        data => console.log(data),
+        error => console.log(error)
+      );
     this.art = null;
     this.displayDialog = false;
   }
@@ -61,7 +84,7 @@ export class SelvinComponent implements OnInit {
   }
 
   findSelectedCarIndex(): number {
-    return this.arts.indexOf(this.selectedCar);
+    return this.arts.indexOf(this.selectedArt);
   }
 
 }

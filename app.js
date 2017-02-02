@@ -177,6 +177,29 @@ app.post('/arts', function(req, res) {
   });
 });
 
+app.post('/art_upd', function(req, res) {
+  connection.query('UPDATE articles SET a_name = \''+req.body.art.name+'\' , rank = \''+req.body.art.rank+'\' WHERE article_id = '+
+      req.body.art.id+' ;', function(err, result) {
+    if(err) throw err;
+    res.json(result);
+  });
+});
+
+app.post('/art_del', function(req, res) {
+  connection.query('DELETE FROM articles WHERE article_id = '+ req.body.art.id+' ;', function(err, result) {
+    if(err) throw err;
+    res.json(result);
+  });
+});
+
+app.post('/art_add', function(req, res) {
+  connection.query('INSERT INTO articles (a_name, rank) VALUES ( \''+req.body.art.name+'\' , \''+req.body.art.rank+'\' );',
+      function(err, result) {
+    if(err) throw err;
+    res.json(result);
+  });
+});
+
 // Start server
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')

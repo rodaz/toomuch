@@ -43,6 +43,18 @@ var CostService = (function () {
         return this.http.post('arts', null)
             .map(function (response) { return response.json(); });
     };
+    CostService.prototype.updArt = function (art) {
+        return this.http.post('art_upd', { art: art })
+            .map(function (response) { return response.json(); });
+    };
+    CostService.prototype.delArt = function (art) {
+        return this.http.post('art_del', { art: art })
+            .map(function (response) { return response.json(); });
+    };
+    CostService.prototype.addArt = function (art) {
+        return this.http.post('art_add', { art: art })
+            .map(function (response) { return response.json(); });
+    };
     return CostService;
 }());
 CostService = __decorate([
