@@ -5,10 +5,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'toomuch'
+  host: '192.168.1.1',
+  user: 'charges',
+  password: 'charges0',
+  database: 'charges'
 });
 
 connection.connect();
