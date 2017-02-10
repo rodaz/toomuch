@@ -1,5 +1,24 @@
 export class Cost {
-  constructor(public costId: any, public costName: any, public planQty: any, public planRate: any, public planTotal: any,
-              public factQty: any, public factRate: any, public factTotal: any) {
+
+  costId: number;
+  costName: string;
+  planQty: number;
+  factQty: number;
+  price: number;
+  planTotal: number;
+  factTotal: number;
+  diff: number;
+
+
+  constructor(costName: string, planQty: number, factQty: number, price: number, planTotal: number,
+              factTotal: number, diff: number, costId: number = 0) {
+    this.costName = costName;
+    this.planQty = planQty;
+    this.factQty = factQty;
+    this.price = price;
+    this.planTotal = planTotal;
+    this.factTotal = factTotal;
+    this.diff = diff;
+    this.costId = costId;
   }
 }

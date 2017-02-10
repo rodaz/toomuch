@@ -1,14 +1,15 @@
 "use strict";
 var Cost = (function () {
-    function Cost(costId, costName, planQty, planRate, planTotal, factQty, factRate, factTotal) {
-        this.costId = costId;
+    function Cost(costName, planQty, factQty, price, planTotal, factTotal, diff, costId) {
+        if (costId === void 0) { costId = 0; }
         this.costName = costName;
         this.planQty = planQty;
-        this.planRate = planRate;
-        this.planTotal = planTotal;
         this.factQty = factQty;
-        this.factRate = factRate;
+        this.price = price;
+        this.planTotal = planTotal;
         this.factTotal = factTotal;
+        this.diff = diff;
+        this.costId = costId;
     }
     return Cost;
 }());

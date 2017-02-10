@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import 'rxjs/Rx';
-import {costs} from "../data/db";
 import {Http, Response} from "@angular/http";
 
 @Injectable()

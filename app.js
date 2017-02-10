@@ -4,11 +4,17 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+// const connection = mysql.createConnection({
+//   host: '192.168.1.1',
+//   user: 'charges',
+//   password: 'charges0',
+//   database: 'charges'
+// });
 const connection = mysql.createConnection({
-  host: '192.168.1.1',
-  user: 'charges',
-  password: 'charges0',
-  database: 'charges'
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'toomuch'
 });
 
 connection.connect();
@@ -24,6 +30,20 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
+
+function go1(arts, req) {
+  let result = [];
+  connection.query('SELECT a_name, SUM(plan_qty), SUM(plan_rate), SUM(plan_total), SUM(fact_qty), SUM(fact_rate), SUM(fact_total) '+
+    'FROM costs '+
+    'LEFT JOIN articles ON article = article_id where month=\''+req.body.month+'\' and year='+
+    req.body.year+' GROUP BY a_name;', function(err, rows) {
+      if (err) throw err;
+      result = rows;
+    }
+  );
+
+  return setTimeout(function () {return result;}, 3000);
+}
 
 function go(arts, req){
   let result = [];
@@ -70,16 +90,42 @@ app.post('/costs', function (req, res) {
   //   if (err) throw err;
   //   res.json(rows);
   // });
-  let arts;
-  let result = [];
-  connection.query('SELECT article_id FROM articles;', function (err, rows) {
+
+
+
+
+
+  // let arts;
+  // let result = [];
+  // connection.query('SELECT article_id FROM articles;', function (err, rows) {
     //if (err) throw err;
-    arts = rows;
 
-    result = go(arts, req);
 
-    console.log(result);
-    setTimeout(function () {res.json(result);}, 3000);
+
+    connection.query('SELECT a_name as costName, SUM(plan_qty) as planQty, SUM(plan_rate) as price, '+
+      'SUM(plan_total) as planTotal, SUM(fact_qty) as factQty, SUM(fact_rate) as factTotal, SUM(fact_total) as diff '+
+      'FROM costs '+
+      'LEFT JOIN articles ON article = article_id where month=\''+req.body.month+'\' and year='+
+      req.body.year+' GROUP BY a_name;', function(err, rows) {
+        if (err) throw err;
+        console.log(rows);
+        res.json(rows);
+      }
+    );
+
+
+
+
+    // arts = rows;
+    //
+    // result = go(arts, req);
+    //
+    // console.log(result);
+    // setTimeout(function () {res.json(result);}, 3000);
+
+
+
+
     //res.json(result);
 
     // for(let j=0; j<arts.length; j++) {
@@ -126,7 +172,7 @@ app.post('/costs', function (req, res) {
     //setTimeout(function(){result = go(artses, req);console.log(result);
     //  res.json(result);},0);
 
-  });
+  // });
    // console.log(result);
    // res.json(result);
 });

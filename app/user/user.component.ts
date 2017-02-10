@@ -87,9 +87,9 @@ export class UserComponent implements OnInit {
         (data:any[]) => {
           let myArray: Cost[] = [];
           for (let k=0;k<data.length;k++) {
-            myArray.push(new Cost(data[k].cost_id, data[k].a_name, data[k].plan_qty, data[k].plan_rate,
+            myArray.push(new Cost(data[k].a_name, data[k].plan_qty, data[k].plan_rate,
               data[k].plan_qty*data[k].plan_rate, data[k].fact_qty, data[k].fact_qty*data[k].plan_rate,
-              data[k].plan_qty*data[k].plan_rate-data[k].fact_qty*data[k].plan_rate))
+              data[k].plan_qty*data[k].plan_rate-data[k].fact_qty*data[k].plan_rate, data[k].cost_id))
           }
           this.costs = myArray;
           console.log(data);
