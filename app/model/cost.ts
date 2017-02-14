@@ -2,6 +2,7 @@ export class Cost {
 
   costId: number;
   costName: string;
+  rank: string;
   planQty: number;
   factQty: number;
   price: number;
@@ -10,9 +11,10 @@ export class Cost {
   diff: number;
 
 
-  constructor(costName: string, planQty: number, factQty: number, price: number, planTotal: number,
+  constructor(costName: string, rank: string, planQty: number, factQty: number, price: number, planTotal: number,
               factTotal: number, diff: number, costId: number = 0) {
     this.costName = costName;
+    this.rank = rank;
     this.planQty = planQty;
     this.factQty = factQty;
     this.price = price;

@@ -1,5 +1,5 @@
 <h1>Расходы</h1>
-
+<div class="fToolbar">
 <p-dropdown [options]="years" [(ngModel)]="selectedYearStart"></p-dropdown>
 <p-dropdown [options]="months" [(ngModel)]="selectedMonthStart"></p-dropdown>
 <!--<p-dropdown [options]="years" [(ngModel)]="selectedYearEnd"></p-dropdown>-->
@@ -10,13 +10,23 @@
 
 <button pButton type="button" label="Закрыть месяц" *ngIf="!lock_item.lock" (click)="lock()" class="lock-btn"></button>
 <button pButton type="button" label="Открыть месяц" *ngIf="lock_item.lock" (click)="open()" class="lock-btn"></button>
-
-<p-dataTable [value]="costs" [emptyMessage]="'Записей не найдено.'">
+</div>
+<p-dataTable [value]="costs" rowGroupMode="subheader" groupField="rank"
+             [sortableRowGroup]="false" [emptyMessage]="'Записей не найдено.'">
+  <template pTemplate="rowgroupheader" let-rowData>{{rowData['rank']}}</template>
   <p-column field="costName" header="Статья расходов"></p-column>
   <p-column field="planQty" header="к-во план"></p-column>
   <p-column field="price" header="цена"></p-column>
   <p-column field="planTotal" header="сумма план"></p-column>
   <p-column field="factQty" header="к-во факт"></p-column>
   <p-column field="factTotal" header="сумма факт"></p-column>
-  <p-column field="diff" header="откл. Сум"></p-column>
+  <p-column field="diff" header="откл. Сум">
+    <template let-col let-cost="rowData" pTemplate="body">
+      <span>{{cost[col.field]}}</span>
+    </template>
+  </p-column>
+  <template pTemplate="rowgroupfooter" let-cost>
+    <td colspan="6" style="text-align:right">Итого:</td>
+    <td>{{calculateGroupTotal(cost['rank'])}}</td>
+  </template>
 </p-dataTable>

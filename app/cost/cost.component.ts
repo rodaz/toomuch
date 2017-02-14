@@ -26,7 +26,7 @@ export class CostComponent implements OnInit {
     this.months.push({label:'Месяц', value:''});
     this.months.push({label:'Январь', value:'Январь'});
     this.months.push({label: 'Февраль', value:'Февраль'});
-    this.months.push({label:'Март', value:'c'});
+    this.months.push({label:'Март', value:'Март'});
     this.months.push({label: 'Апрель', value:'Апрель'});
     this.months.push({label:'Май', value:'Май'});
     this.months.push({label: 'Июнь', value:'Июнь'});
@@ -45,7 +45,7 @@ export class CostComponent implements OnInit {
     this.years.push({label: '2020', value:2020});
 
     this.locks = [];
-    //this.locks.push({label: 'Декабрь 2015', value: 4});
+
     this.costService.getMonthes()
       .subscribe(
         (data:any[]) => {
@@ -54,7 +54,6 @@ export class CostComponent implements OnInit {
             tempArr.push({label: data[i].m_name, value: {id:data[i].month_id, lock: data[i].lock}});
           }
           this.locks = tempArr;
-          //this.lock_item = tempArr[0];
         }
       );
   }
@@ -63,30 +62,16 @@ export class CostComponent implements OnInit {
     this.loadData(this.selectedMonthStart, this.selectedYearStart);
   }
 
-  ngOnInit() {
-    //this.loadData('Январь', 2016);
-    //this.costService.subject.subscribe((month) => this.loadData(month));
-  }
+  ngOnInit() { }
 
   loadData(month: string, year: number) {
     this.costService.getCosts(month, year)
       .subscribe(
         (data:any[]) => {
-          let myArray: Cost[] = [];
           let tempCosts: Cost[] = [];
           for (let costItem of data) {
-
             tempCosts.push(costItem as Cost);
           }
-
-          //for (let k=0;k<data.length;k++) {
-            //myArray.push(new Cost(data[key].cost_id, data[key].a_name,data[key].fact_qty,data[key].fact_rate,
-              //data[key].fact_total, data[key].plan_qty,data[key].plan_rate,data[key].plan_total));
-            //myArray.push(new Cost(0, data[k][1].a_name, data[k][2].plan_qty, data[k][3].plan_rate,
-            //  data[k][4].plan_total, data[k][5].fact_qty, data[k][6].fact_rate, data[k][7].fact_total))
-          //}
-          // this.costs = myArray;
-          console.log(tempCosts);
           this.costs = tempCosts;
         }
       );
@@ -102,7 +87,19 @@ export class CostComponent implements OnInit {
   }
 
   open() {
-    //this.costService.updLock(this.lock_item.id, 0);
     this.lock_item.lock = 0;
+  }
+
+  calculateGroupTotal(rank: string) {
+    let total = 0;
+
+    if(this.costs) {
+      for(let car of this.costs) {
+        if(car.rank === rank) {
+          total += car.diff;
+        }
+      }
+    }
+    return total;
   }
 }

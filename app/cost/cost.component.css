@@ -11,5 +11,9 @@
 
 .lock-input {
   position: absolute;
-  right: 200px;
+  right: 180px;
+}
+
+.fToolbar {
+  margin-bottom: 10px;
 }

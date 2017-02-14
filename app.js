@@ -31,150 +31,18 @@ app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-function go1(arts, req) {
-  let result = [];
-  connection.query('SELECT a_name, SUM(plan_qty), SUM(plan_rate), SUM(plan_total), SUM(fact_qty), SUM(fact_rate), SUM(fact_total) '+
-    'FROM costs '+
-    'LEFT JOIN articles ON article = article_id where month=\''+req.body.month+'\' and year='+
-    req.body.year+' GROUP BY a_name;', function(err, rows) {
-      if (err) throw err;
-      result = rows;
-    }
-  );
-
-  return setTimeout(function () {return result;}, 3000);
-}
-
-function go(arts, req){
-  let result = [];
-  for(let j=0; j<arts.length; j++) {
-    connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-      'left join articles on article = article_id where month=\''+req.body.month+'\' and year='+
-      req.body.year+' and article='+arts[j].article_id+' ;', function (err, rows) {
-      if (err) throw err;
-      if (rows[0]) {
-        //console.log('HER '+rows[0]);
-        let temp = [
-          {cost_id: 0},
-          {a_name: rows[0].a_name},
-          {plan_qty: 0},
-          {plan_rate: 0},
-          {plan_total: 0},
-          {fact_qty: 0},
-          {fact_rate: 0},
-          {fact_total: 0}
-        ];
-        for (let i = 0; i < rows.length; i++) {
-          temp[2].plan_qty += rows[i].plan_qty;
-          temp[3].plan_rate += rows[i].plan_rate;
-          temp[4].plan_total += rows[i].plan_total;
-          temp[5].fact_qty += rows[i].fact_qty;
-          temp[6].fact_rate += rows[i].fact_rate;
-          temp[7].fact_total += rows[i].fact_total;
-        }
-        result.push(temp);
-      }
-    });
-  }
-
-  //setTimeout(function(){console.log('hehe '+result);}, 3000);
-  return result;
-}
-
 // Get costs route
 app.post('/costs', function (req, res) {
-
-  // connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-  //   'left join articles on article = article_id left join gilds on gild = gild_id where month='+req.body.month+' and year='+
-  //   req.body.year+' ;', function (err, rows, fields) {
-  //   if (err) throw err;
-  //   res.json(rows);
-  // });
-
-
-
-
-
-  // let arts;
-  // let result = [];
-  // connection.query('SELECT article_id FROM articles;', function (err, rows) {
-    //if (err) throw err;
-
-
-
-    connection.query('SELECT a_name as costName, SUM(plan_qty) as planQty, SUM(plan_rate) as price, '+
+    connection.query('SELECT a_name as costName, rank, SUM(plan_qty) as planQty, SUM(plan_rate) as price, '+
       'SUM(plan_total) as planTotal, SUM(fact_qty) as factQty, SUM(fact_rate) as factTotal, SUM(fact_total) as diff '+
       'FROM costs '+
-      'LEFT JOIN articles ON article = article_id where month=\''+req.body.month+'\' and year='+
+      'LEFT JOIN articles ON article = article_id WHERE month=\''+req.body.month+'\' and year='+
       req.body.year+' GROUP BY a_name;', function(err, rows) {
         if (err) throw err;
         console.log(rows);
         res.json(rows);
       }
     );
-
-
-
-
-    // arts = rows;
-    //
-    // result = go(arts, req);
-    //
-    // console.log(result);
-    // setTimeout(function () {res.json(result);}, 3000);
-
-
-
-
-    //res.json(result);
-
-    // for(let j=0; j<arts.length; j++) {
-    //   connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-    //     'left join articles on article = article_id where month='+req.body.month+' and year='+
-    //     req.body.year+' and article='+arts[j].article_id+' ;', function (err, rows) {
-    //     //if (err) throw err;
-    //     if (rows[0]) {
-    //       //console.log('HER '+rows[0]);
-    //       let temp = [
-    //         {cost_id: 0},
-    //         {a_name: rows[0].a_name},
-    //         {plan_qty: 0},
-    //         {plan_rate: 0},
-    //         {plan_total: 0},
-    //         {fact_qty: 0},
-    //         {fact_rate: 0},
-    //         {fact_total: 0}
-    //       ];
-    //       for (let i = 0; i < rows.length; i++) {
-    //         temp[2].plan_qty += rows[i].plan_qty;
-    //         temp[3].plan_rate += rows[i].plan_rate;
-    //         temp[4].plan_total += rows[i].plan_total;
-    //         temp[5].fact_qty += rows[i].fact_qty;
-    //         temp[6].fact_rate += rows[i].fact_rate;
-    //         temp[7].fact_total += rows[i].fact_total;
-    //       }
-    //       result.push(temp);
-    //     }
-    //     if (j>=arts.length-1){
-    //       console.log(result);
-    //       res.json(result);
-    //     }
-    //
-    //       //console.log(result[0]);
-    //
-    //       //res.json(result);
-    //
-    //     //console.log('eblan '+result);
-    //   });
-
-    //}
-
-    //setTimeout(function(){result = go(artses, req);console.log(result);
-    //  res.json(result);},0);
-
-  // });
-   // console.log(result);
-   // res.json(result);
 });
 
 app.post('/month', function (req, res) {
@@ -199,8 +67,9 @@ app.post('/log', function(req, res) {
 });
 
 app.post('/userData', function(req, res) {
-  connection.query('SELECT cost_id, a_name, plan_qty, plan_rate, plan_total, fact_qty, fact_rate, fact_total FROM costs '+
-      'left join articles on article = article_id where month=\''+req.body.month+'\' and year='+
+  connection.query('SELECT cost_id as costId, a_name as costName, rank, plan_qty as planQty, plan_rate as price, '+
+      'plan_total as planTotal, fact_qty as factQty, fact_rate as factTotal, fact_total as diff FROM costs '+
+      'LEFT JOIN articles ON article = article_id WHERE month=\''+req.body.month+'\' and year='+
       req.body.year+' and gild='+req.body.user+' ;', function (err, rows) {
     if (err) throw err;
     res.json(rows);

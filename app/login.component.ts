@@ -4,24 +4,19 @@ import {CostService} from "./services/costService";
 
 @Component({
   selector: 'log-app',
-  templateUrl: './app/login.component.html'
+  templateUrl: './app/login.component.html',
+  styleUrls: ['./app/login.component.css']
 })
 export class LoginComponent {
 
   //Main user
   admin: string = 'Hogwarts';
+  //Admin panel
   crud: string = 'Selvin';
 
   constructor(private router: Router, private costService: CostService){}
 
   onLogin(log: string, pass: string) {
-    // if (log == 'root' && pass == 'root')
-    //   this.router.navigate(['/admin']);
-    // else
-    //   if (log == 'user' && pass == 'user')
-    //     this.router.navigate(['/admin']);
-    //   else
-    //     this.router.navigate(['/admin']);
     this.costService.log_in(log, pass)
       .subscribe(
         (data:any) => {
